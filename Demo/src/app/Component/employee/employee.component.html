@@ -1,0 +1,218 @@
+<!-- Get All -->
+<div class="container my-5">
+    <div class="form-group my-3">
+        <button data-bs-toggle="modal" data-bs-target="#CreateEmp" class="btn btn-success"> Add </button>
+    </div>
+    <table id="myTable" class="table  table-striped ">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Salary</th>
+                <!-- <th scope="col">Address</th>
+                <th scope="col">HireDate</th>
+                <th scope="col">IsActive</th> -->
+                <th scope="col">Details</th>
+                <th scope="col">update</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of AllEmp">
+                <th> {{item.id}} </th>
+                <th> {{item.name}} </th>
+                <th> {{item.salary}} </th>
+                <!-- <th> {{item.address}} </th>
+                <th> {{item.hireDate}} </th>
+                <th> {{item.isActive}} </th> -->
+
+                <th scope="col">
+                    <a class="  btn btn-success" (click)="getEmployeeById(item.id)" data-bs-toggle="modal" data-bs-target="#Details" href="#">More Details </a>
+                </th>
+                <th scope="col">
+                    <a class="  btn btn-warning" (click)="setValue(item.id)" data-bs-toggle="modal" data-bs-target="#Edit" href="#">Update </a>
+                </th>
+                <th scope="col">
+                    <a class="  btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete" (click)="GetIdEmp(item.id)" href="#">Delete </a>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- CreateEmp -->
+<div class="modal fade" id="CreateEmp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="create" (ngSubmit)='create.valid && formData()'>
+                        <div class="form-group my-4">
+                            <label class="form-label">Name :</label>
+
+                            <input [class.is-valid]='create.get("name")?.valid' [class.is-invalid]='create.get("name")?.invalid && create.get("name")?.touched' type="text" formControlName='name' class="form-control">
+
+                            <div *ngIf='create.get("name")?.invalid && create.get("name")?.touched' class="alert alert-danger" role="alert">
+                                Name is required !
+                            </div>
+                        </div>
+
+                        <div class="form-group my-4">
+                            <label class="form-label">Address :</label>
+                            <input [class.is-valid]='create.get("address")?.valid' [class.is-invalid]='create.get("address")?.invalid && create.get("address")?.touched' type="text" formControlName='address' placeholder="ex: 12-Street-CIty-Country" class="form-control">
+
+                            <div *ngIf='create.get("address")?.invalid && create.get("address")?.touched' class="alert alert-danger" role="alert">
+                                Like : 12-Street-CIty-Country
+                            </div>
+                        </div>
+
+                        <div class="form-group my-4">
+                            <label class="form-label">Salary :</label>
+                            <input [class.is-valid]='create.get("salary")?.valid' [class.is-invalid]='create.get("salary")?.invalid && create.get("salary")?.touched' type="number" formControlName='salary' class="form-control">
+
+                            <div *ngIf='create.get("salary")?.invalid && create.get("salary")?.touched' class="alert alert-danger" role="alert">
+                                Salary is required ! Min Salary 1000p
+                            </div>
+                        </div>
+
+                        <div class="form-group my-4">
+                            <label class="form-label">Birth Date :</label>
+                            <input [max]="maxDate" [class.is-valid]='create.get("hireDate")?.valid' [class.is-invalid]='create.get("hireDate")?.invalid && create.get("hireDate")?.touched' type="date" formControlName='hireDate' class="form-control">
+
+                            <div *ngIf='create.get("hireDate")?.invalid == true && create.get("hireDate")?.touched' class="alert alert-danger" role="alert">
+                                Birth Date is required !
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-check my-4">
+                            <input type="checkbox" formControlName='isActive' class="form-check-input ">
+                            <label class="form-check-label">isActive ?</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="resetForm()" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Details -->
+<div class="modal fade" id="Details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div *ngFor="let emps of empDetails" class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title"> <span class="span">- {{emps.name}} -</span> </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>ID : <span class="span"> {{emps.id}} </span> </li>
+                    <li>Name : <span class="span"> {{emps.name}} </span> </li>
+                    <li>Address : <span class="span"> {{emps.address}} </span> </li>
+                    <li>Salary : <span class="span"> {{emps.salary}} </span> </li>
+                    <li>HireDate : <span class="span"> {{emps.hireDate}} </span> </li>
+                    <li>IsActive : <span class="span"> {{emps.isActive}} </span> </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Update -->
+<div class="modal fade" id="Edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Employee </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form [formGroup]="create" (ngSubmit)='create.valid && EditEmp()'>
+                        <div class="form-group my-2">
+                            <label class="form-label">Name :</label>
+                            <input [class.is-valid]='create.get("name")?.valid' [class.is-invalid]='create.get("name")?.invalid && create.get("name")?.touched' type="text" formControlName='name' class="form-control">
+
+                            <div *ngIf='create.get("name")?.invalid && create.get("name")?.touched' class="alert alert-danger" role="alert">
+                                Name is required !
+                            </div>
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label class="form-label">Address :</label>
+                            <input [class.is-valid]='create.get("address")?.valid' [class.is-invalid]='create.get("address")?.invalid && create.get("address")?.touched' type="text" formControlName='address' placeholder="ex: 12-Street-CIty-Country" class="form-control">
+
+                            <div *ngIf='create.get("address")?.invalid && create.get("address")?.touched' class="alert alert-danger" role="alert">
+                                Like : 12-Street-CIty-Country
+                            </div>
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label class="form-label">Salary :</label>
+                            <input [class.is-valid]='create.get("salary")?.valid' [class.is-invalid]='create.get("salary")?.invalid && create.get("salary")?.touched' type="number" formControlName='salary' class="form-control" placeholder="1000 : 50000">
+
+                            <div *ngIf='create.get("salary")?.invalid && create.get("salary")?.touched' class="alert alert-danger" role="alert">
+                                Salary is required ! Min Salary 1000p
+                            </div>
+                        </div>
+
+                        <div class="form-group my-2">
+                            <label class="form-label">Birth Date :</label>
+                            <input [max]="maxDate" [class.is-valid]='create.get("hireDate")?.valid' [class.is-invalid]='create.get("hireDate")?.invalid && create.get("hireDate")?.touched' type="date" formControlName='hireDate' class="form-control">
+
+                            <div *ngIf='create.get("hireDate")?.invalid == true && create.get("hireDate")?.touched' class="alert alert-danger" role="alert">
+                                Birth Date is required !
+                            </div>
+                        </div>
+
+
+                        <div class="form-group form-check my-2">
+                            <input type="checkbox" formControlName='isActive' class="form-check-input ">
+                            <label class="form-check-label">isActive ?</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="resetForm()" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete -->
+<div class="modal fade" id="Delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>are yo sure to Delete?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" (click)="DeleteEmp()" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

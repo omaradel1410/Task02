@@ -1,0 +1,22 @@
+.table th {
+    background-color: rgb(7, 7, 10);
+    color: rgb(201, 165, 165);
+}
+
+.dataTables_wrapper .dataTables_length {
+    color: #e4c5c5 !important;
+}
+
+.span {
+    color: brown;
+}
+
+UL LI {
+    font-weight: 600;
+    font-size: 20PX;
+    list-style: circle;
+}
+
+.btn {
+    font-size: .8rem;
+}
