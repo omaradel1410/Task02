@@ -11,12 +11,12 @@ export class APIsService {
   constructor(public _HttpClient:HttpClient) {}
 
   
-  public GetAllEmployee():Observable<any>
+  public GetAllEmployee(paging:number):Observable<any>
   {
-    return  this._HttpClient.get(`${this.baseUrl}GetEmployees`);
+    return  this._HttpClient.get(`${this.baseUrl}GetEmployees/${paging}`);
   }
  
-  public createEmployee(data: any):Observable<any>
+  public createEmployee(data: any ):Observable<any>
   {
     return  this._HttpClient.post(`${this.baseUrl}CreateEmployee`, data);
   }
@@ -36,6 +36,5 @@ export class APIsService {
 
     return  this._HttpClient.delete(`${this.baseUrl}DeleteEmployee/${id}`);
   }
-
 
 }
