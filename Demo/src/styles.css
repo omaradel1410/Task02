@@ -1,17 +1,22 @@
-﻿body {
-    background-color: rgb(51, 51, 61);
-}
-
-html,
 body {
     height: 100%;
-}
-
-body {
+    background-color: #10181d;
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .dataTables_wrapper {
-    color: antiquewhite !important;
+    color: #e4c5c5 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    display: none !important;
+}
+
+.dataTables_wrapper .dataTables_info {
+    display: none !important;
+}
+
+.dataTables_wrapper .dataTables_length {
+    display: none !important;
 }
