@@ -1,6 +1,8 @@
 .table th {
-    background-color: rgb(7, 7, 10);
+    background-color: #121d23;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
     color: rgb(201, 165, 165);
+    border: none !important;
 }
 
 .dataTables_wrapper .dataTables_length {
@@ -19,4 +21,17 @@ UL LI {
 
 .btn {
     font-size: .8rem;
+}
+
+.page-link {
+    cursor: pointer;
+    font-size: .8rem;
+}
+
+.dataTables {
+    color: #e4c5c5;
+}
+
+.pagination {
+    justify-content: end;
 }
