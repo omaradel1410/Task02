@@ -34,14 +34,14 @@ namespace Demo.API.Controllers
 
         #region APIs
 
-        #region GetEmployees
+      #region GetEmployees
         [HttpGet]
-        [Route("~/API/Employee/GetEmployees")]
-        public IActionResult GetEmployees()
+        [Route("~/API/Employee/GetEmployees/{paging}")]
+        public IActionResult GetEmployees(int paging)
         {
             try
             {
-                var data = iemployee.GetAllEmployee();
+                var data = iemployee.GetAllEmployee(paging);
                 return Ok(new ApiResponse<IEnumerable<EmployeeVM>>()
                 {
                     Code = "200",
