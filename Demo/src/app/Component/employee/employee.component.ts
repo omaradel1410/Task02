@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Employee } from './../../employee';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { APIsService } from '../../Services/apis.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpEventType, HttpClient } from '@angular/common/http';
+
+
+// import { Employee } from '../../employee';
 
 declare var $:any;
 
@@ -21,21 +26,64 @@ declare var $:any;
 
 
 export class EmployeeComponent implements OnInit {
+  public progress: number;
+  public message: string;
+  @Output() public onUploadFinished = new EventEmitter();
 
   constructor(public _APIsService:APIsService) {  }
 
   //---------------   Get All Employees ---------------   
+  currentIndex:number = 0;
+  EntriesLength:number;
+
+  public getNext() {
+    if(this.AllEmp.length-1 <= 0) {
+      this.currentIndex = 0
+      this.getAllEmp()      
+
+      console.log(this.EntriesLength); 
+    } else {
+      this.currentIndex++
+      this.getAllEmp()
+      console.log(this.EntriesLength); 
+    }
+  }
+
+  public getPrev() {
+    if(this.currentIndex <= 0 ) {
+      this.currentIndex = 0 ;
+      this.getAllEmp();
+    } else {
+      this.currentIndex--;
+      this.getAllEmp();
+    }
+    
+  }
+
+  // if(this.AllEmp.length > 0) {
+  //   this.currentIndex = 0;
+  //   this.getAllEmp();
+  //   console.log( this.currentIndex);
+    
+  //  } else if(this.AllEmp.length == 0) {
+  //   this.currentIndex--;
+  //   this.getAllEmp();
+  //  }
+
   AllEmp:any ; // allEmployee
   public getAllEmp()
   {
-    this._APIsService.GetAllEmployee().subscribe(res =>{      
+    this._APIsService.GetAllEmployee(this.currentIndex).subscribe(res =>{      
       if (res.message == 'Data Retrived')
       {
-          this.AllEmp = res.data;
-      }
+          this.AllEmp = res.data;          
+          this.EntriesLength = this.AllEmp.length
+        }
     }, (err)=>{ console.log(err);
      })
    }
+
+
   //---------------  / Get All Employees \ ---------------   
   
   
@@ -84,14 +132,27 @@ export class EmployeeComponent implements OnInit {
     'isActive': new FormControl(null, Validators.required),
   })
 
+  public uploadFile = (files:any) => {
+    if (files.length === 0) {
+      return;
+    }
+ 
+  }
 
 public formData() 
 {
   if (this.create.valid)
   {
+
+    //let fileToUpload = <File> files [0];
+   // const formData = new FormData();
+   // formData.append('file', fileToUpload, fileToUpload.name);
+
+
+
      this._APIsService.createEmployee(this.create.value).subscribe(res => 
       {       
-        if(res.message == 'Data Modified') {
+        if(res.message == 'Data Modified' ) {
           $('#CreateEmp').modal('hide');
           this.getAllEmp();
           this.create.reset();
@@ -180,10 +241,10 @@ public formData()
     this.getAllEmp()
 
     $(document).ready( function () {
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+          // "dom": '<"top"i>rt<"bottom"f1p><"clear">'
+        });
     });
   }
 
 }
-
-
