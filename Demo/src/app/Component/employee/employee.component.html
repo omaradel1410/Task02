@@ -2,9 +2,11 @@
 <div class="container my-5">
     <div class="form-group my-3">
         <button data-bs-toggle="modal" data-bs-target="#CreateEmp" class="btn btn-success"> Add </button>
+
     </div>
     <table id="myTable" class="table  table-striped ">
-        <thead>
+
+        <thead class="text-center">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
@@ -17,7 +19,8 @@
                 <th scope="col">Delete</th>
             </tr>
         </thead>
-        <tbody>
+
+        <tbody class="text-center">
             <tr *ngFor="let item of AllEmp">
                 <th> {{item.id}} </th>
                 <th> {{item.name}} </th>
@@ -37,8 +40,36 @@
                 </th>
             </tr>
         </tbody>
+
+
     </table>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="dataTables my-2">
+                <h6>Showing {{EntriesLength}} entries</h6>
+            </div>
+        </div>
+
+        <div class="col-md-7">
+            <ul class="pagination">
+                <li class="paginate_button page-item previous " id="myTable_previous">
+                    <a aria-controls="myTable" [tabindex]="currentIndex" (click)="getPrev()" class="page-link">Prev</a>
+                </li>
+
+                <li class="paginate_button page-item active">
+                    <a href="#" aria-controls="myTable" class="page-link"> {{currentIndex}} </a>
+                </li>
+
+                <li class="paginate_button page-item next " id="myTable_next">
+                    <a aria-controls="myTable" [tabindex]="currentIndex" (click)="getNext()" class="page-link">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+
+
 
 
 <!-- CreateEmp -->
@@ -90,6 +121,14 @@
                         </div>
 
 
+                        <div class="row" style="margin-bottom:15px;">
+                            <div class="col-md-3">
+                                <input type="file" #file placeholder="Choose file" style="display:none;">
+                            </div>
+
+                        </div>
+
+
                         <div class="form-group form-check my-4">
                             <input type="checkbox" formControlName='isActive' class="form-check-input ">
                             <label class="form-check-label">isActive ?</label>
@@ -100,7 +139,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="resetForm()" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" (click)="resetForm() " data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
