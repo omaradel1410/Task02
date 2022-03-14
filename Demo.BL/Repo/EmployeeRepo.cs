@@ -34,12 +34,12 @@ namespace Demo.BL.Repo
         #region Actions
 
         #region GetAllEmployee
-        public IEnumerable<EmployeeVM> GetAllEmployee()
+        public IEnumerable<EmployeeVM> GetAllEmployee(int paging)
         {
-            var data = db.Employee.Select(e => e).ProjectTo<EmployeeVM>(mapper.ConfigurationProvider);
+            var data = db.Employee.Select(e => e).ProjectTo<EmployeeVM>(mapper.ConfigurationProvider).Skip(paging * 10).Take(10); ;
             return data;
         }
-
+        
         #endregion
 
 
