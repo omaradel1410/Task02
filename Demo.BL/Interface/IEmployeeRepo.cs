@@ -10,7 +10,7 @@ namespace Demo.BL.Interface
 {
     public interface IEmployeeRepo
     {
-        IEnumerable<EmployeeVM> GetAllEmployee();
+        IEnumerable<EmployeeVM> GetAllEmployee(int paging);
 
         public EmployeeVM GetById(int id);
 
