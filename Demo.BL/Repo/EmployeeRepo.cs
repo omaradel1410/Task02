@@ -36,7 +36,8 @@ namespace Demo.BL.Repo
         #region GetAllEmployee
         public IEnumerable<EmployeeVM> GetAllEmployee(int paging)
         {
-            var data = db.Employee.Select(e => e).ProjectTo<EmployeeVM>(mapper.ConfigurationProvider).Skip(paging * 10).Take(10); ;
+            //var data = db.Employee.Select(e => e).ProjectTo<EmployeeVM>(mapper.ConfigurationProvider).Skip(paging * 10).Take(10);
+            var data = db.Employee.Skip(paging * 10).Take(10).ProjectTo<EmployeeVM>(mapper.ConfigurationProvider);
             return data;
         }
         
