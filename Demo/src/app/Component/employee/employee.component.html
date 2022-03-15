@@ -1,7 +1,7 @@
 <!-- Get All -->
 <div class="container my-5">
     <div class="form-group my-3">
-        <button data-bs-toggle="modal" data-bs-target="#CreateEmp" class="btn btn-success"> Add </button>
+        <button data-bs-toggle="modal" data-bs-target="#CreateEmp" class="btnAdd btn btn-success">  <i class="fa-solid fa-plus"></i></button>
 
     </div>
     <table id="myTable" class="table  table-striped ">
@@ -9,14 +9,14 @@
         <thead class="text-center">
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Salary</th>
+                <th scope="col">NAME</th>
+                <th scope="col">SALARY</th>
                 <!-- <th scope="col">Address</th>
                 <th scope="col">HireDate</th>
                 <th scope="col">IsActive</th> -->
-                <th scope="col">Details</th>
-                <th scope="col">update</th>
-                <th scope="col">Delete</th>
+                <th scope="col">DETAILS</th>
+                <th scope="col">UPDATE</th>
+                <th scope="col">DELETE</th>
             </tr>
         </thead>
 
@@ -30,13 +30,13 @@
                 <th> {{item.isActive}} </th> -->
 
                 <th scope="col">
-                    <a class="  btn btn-success" (click)="getEmployeeById(item.id)" data-bs-toggle="modal" data-bs-target="#Details" href="#">More Details </a>
+                    <a class="  btn btn-outline-success" (click)="getEmployeeById(item.id)" data-bs-toggle="modal" data-bs-target="#Details" href="#"><i class="fa-solid fa-circle-info"></i> </a>
                 </th>
                 <th scope="col">
-                    <a class="  btn btn-warning" (click)="setValue(item.id)" data-bs-toggle="modal" data-bs-target="#Edit" href="#">Update </a>
+                    <a class="  btn btn-outline-warning" (click)="setValue(item.id)" data-bs-toggle="modal" data-bs-target="#Edit" href="#"><i class="fa-solid fa-pen-to-square"></i> </a>
                 </th>
                 <th scope="col">
-                    <a class="  btn btn-danger" data-bs-toggle="modal" data-bs-target="#Delete" (click)="GetIdEmp(item.id)" href="#">Delete </a>
+                    <a class="  btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Delete" (click)="GetIdEmp(item.id)" href="#"><i class="fa-solid fa-trash-can"></i> </a>
                 </th>
             </tr>
         </tbody>
