@@ -149,19 +149,19 @@
 <!-- Details -->
 <div class="modal fade" id="Details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div *ngFor="let emps of empDetails" class="modal-content">
+        <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title"> <span class="span">- {{emps.name}} -</span> </h5>
+                <h5 class="modal-title"> <span class="span">- {{_employee.name}} -</span> </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <ul>
-                    <li>ID : <span class="span"> {{emps.id}} </span> </li>
-                    <li>Name : <span class="span"> {{emps.name}} </span> </li>
-                    <li>Address : <span class="span"> {{emps.address}} </span> </li>
-                    <li>Salary : <span class="span"> {{emps.salary}} </span> </li>
-                    <li>HireDate : <span class="span"> {{emps.hireDate}} </span> </li>
-                    <li>IsActive : <span class="span"> {{emps.isActive}} </span> </li>
+                    <li>ID : <span class="span"> {{_employee.id}} </span> </li>
+                    <li>Name : <span class="span"> {{_employee.name}} </span> </li>
+                    <li>Address : <span class="span"> {{_employee.address}} </span> </li>
+                    <li>Salary : <span class="span"> {{_employee.salary}} </span> </li>
+                    <li>HireDate : <span class="span"> {{_employee.hireDate}} </span> </li>
+                    <li>IsActive : <span class="span"> {{_employee.isActive}} </span> </li>
                 </ul>
             </div>
             <div class="modal-footer">
