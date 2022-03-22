@@ -30,7 +30,7 @@ export class EmployeeComponent implements OnInit {
   public message: string;
   @Output() public onUploadFinished = new EventEmitter();
 
-  constructor(public _APIsService:APIsService) {  }
+  constructor(public _APIsService:APIsService, public _employee:Employee) {  }
 
   //---------------   Get All Employees ---------------   
   currentIndex:number = 0;
@@ -90,14 +90,13 @@ export class EmployeeComponent implements OnInit {
   
   //---------------   Get Employee By Id  ---------------   
   
-  empDetails:any; // get Emloyee Details
   getEmployeeById(id:number)
   {  
     this._APIsService.getEmployeeById(id).subscribe( (res) =>{
-
-        let emp = Array.of( res.data);
-        this.empDetails = emp;
-    },
+      this._employee = res.data;
+        // let emp = Array.of( res.data);
+        // this.empDetails = res.data
+      },
     (err)=>{console.log(err);
     })  
   }
